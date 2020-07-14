@@ -81,8 +81,8 @@ const Menu = () => {
             name: element.name,
           },
         ]);
-        setIsLoading(false);
       });
+      setIsLoading(false);
     });
   }, [url]);
   const handleMenu = (event) => {

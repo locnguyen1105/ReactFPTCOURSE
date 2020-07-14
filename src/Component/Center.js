@@ -19,7 +19,7 @@ const Center = (props) => {
       <Container fixed className={classes.content}>
         <Typography
           component="div"
-          style={{ backgroundColor: "#fafafa", height: "100vh" }}
+          style={{ backgroundColor: "#fafafa", height: "90vh" }}
         ></Typography>
       </Container>
     </React.Fragment>
