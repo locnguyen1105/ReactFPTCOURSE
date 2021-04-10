@@ -5,7 +5,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Alert from "@material-ui/lab/Alert";
-import { useAuth } from "../context/auth.js";
+import { useAuth } from "../../Auth/auth";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 function FormLogin(props) {
@@ -26,7 +26,7 @@ function FormLogin(props) {
   const classes = useStyles();
   const [errors, setErrors] = useState();
   let validate = true;
-  const url = `/login`;
+  const url = `https://localhost:44388/api/login`;
   const data = {
     username: fields["username"],
     password: fields["password"],
@@ -45,23 +45,27 @@ function FormLogin(props) {
     e.preventDefault();
     setLoading(true);
     if (validation()) {
-      Axios.post(url, data)
+      Axios.get(url, {
+        params: data
+      }) 
         .then((response) => {
+          console.log(response)
           if (response !== null) {
             setAuthUsers({
-              tokens: response.data.accessToken,
-              roles: response.data.roles,
-              student: response.data.student,
+              tokens: 'temp', // get token
+              roles: 'ROLE_USER', // get role
+              user: response.data,
             });
             setIsLogin(true);
           }
         })
         .catch((error) => {
           setLoading(false);
-          setErrors(error.response.data.message);
+          setErrors(error);
         });
     }
   };
+  // save token to local storerage
   if (!localStorage.getItem("tokenlogin")) {
     if (isLogin) {
       localStorage.setItem("tokenlogin", authUser.tokens + "login");

@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthContext } from "../context/auth.js";
+import { AuthContext } from ".././Auth/auth";
 import { render } from "@testing-library/react";
 
 const AuthenHOC = (OriginalComponent, Roles) => {
@@ -8,10 +8,13 @@ const AuthenHOC = (OriginalComponent, Roles) => {
       super(props);
     }
     render() {
-      if (Roles.includes(this.context.authUser.roles[0])) {
+      if (Roles.includes(this.context.authUser.roles)) {
+        console.log(this.context.authUser);
         return <OriginalComponent {...this.props} />;
       } else {
-        return;
+        console.log(this.context.authUser);
+        console.log(Roles)
+        return '';
       }
     }
   }

@@ -1,5 +1,4 @@
 import React from "react";
-import logofpt from "../logofpt.png";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -91,7 +90,6 @@ const NavBar = (props) => {
     >
       <div className={classes.drawerHeader}>
         <Link href="/dashboard" className={classes.anchor}>
-          <img src={logofpt} style={{ width: "90%" }} />
         </Link>
       </div>
       <Divider />

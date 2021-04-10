@@ -4,17 +4,14 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuM from "@material-ui/core/Menu";
-import NavBar from "./NavBar";
-import "../App.css";
-import clsx from "clsx";
+import NavBar from "../NavBar";
+import "./Menu.scss";
 import { useHistory, Redirect } from "react-router-dom";
 import Axios from "axios";
-import Center from "./Center";
-import { useAuth } from "../context/auth.js";
+import Center from "../Center";
+import { useAuth } from "../../Auth/auth";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Avatar from "@material-ui/core/Avatar";
 const Menu = () => {
@@ -69,21 +66,28 @@ const Menu = () => {
   const openAnchor = Boolean(anchorEl);
   const { authUser } = useAuth();
   const [isLoading, setIsLoading] = React.useState(true);
-  const url = "/dashboard/subject/" + authUser.student.code;
+  const url = "";
   useEffect(() => {
-    Axios.post(url, null, {
-      headers: { Authorization: "Bearer " + authUser.tokens },
-    }).then((response) => {
-      response.data.map((element, index) => {
-        setSubjectCode([
+    // Axios.post(url, null, {
+    //   headers: { Authorization: "Bearer " + authUser.tokens },
+    // }).then((response) => {
+    //   response.data.map((element, index) => {
+    //     setSubjectCode([
+    //       {
+    //         code: element.code,
+    //         name: element.name,
+    //       },
+    //     ]);
+    //   });
+    //   setIsLoading(false);
+    // });
+          setSubjectCode([
           {
-            code: element.code,
-            name: element.name,
+            code: "22",
+            name: "33",
           },
         ]);
-      });
-      setIsLoading(false);
-    });
+        setIsLoading(false);
   }, [url]);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -110,17 +114,6 @@ const Menu = () => {
   if (isLoading) {
     return <CircularProgress className={classes.loading} />;
   }
-  function importAll(r) {
-    let images = {};
-    r.keys().map((item, index) => {
-      images[item.replace("./", "")] = r(item);
-    });
-    return images;
-  }
-
-  const images = importAll(
-    require.context("../Resource/Image", false, /\.(png|jpe?g|svg)$/)
-  );
   return (
     <div className={classes.root}>
       <AppBar
@@ -142,7 +135,6 @@ const Menu = () => {
               onClick={handleMenu}
               color="inherit"
             >
-              <Avatar alt={authUser.student.name} src={images["loc.jpg"]} />
             </IconButton>
             <MenuM
               id="menu-appbar"
